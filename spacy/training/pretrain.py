@@ -41,7 +41,7 @@ def pretrain(
     optimizer = P["optimizer"]
     # Load in pretrained weights to resume from
     if resume_path is not None:
-        _resume_model(model, resume_path, epoch_resume, silent=silent)
+        _resume_model(model, resume_path, epoch_resume, silent=silent)  # type: ignore[arg-type]
     else:
         # Without '--resume-path' the '--epoch-resume' argument is ignored
         epoch_resume = 0
@@ -68,7 +68,7 @@ def pretrain(
 
     # TODO: I think we probably want this to look more like the
     # 'create_train_batches' function?
-    for epoch in range(epoch_resume, P["max_epochs"]):
+    for epoch in range(epoch_resume, P["max_epochs"]):  # type: ignore[arg-type]
         for batch_id, batch in enumerate(batcher(corpus(nlp))):
             docs = ensure_docs(batch)
             loss = make_update(model, docs, optimizer, objective)
